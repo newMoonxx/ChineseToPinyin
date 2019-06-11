@@ -9,11 +9,13 @@
    QString getNamePingyin(const QString& inStr, bool isLastName); // 获取唯一的拼音（自动识别多音字）
    
 二.详情
+
    适用场景、运行效果、代码原理、思路、注意事项 请看博文
    https://blog.csdn.net/weixin_38887369/article/details/91047524   // 本开源项目介绍
    https://blog.csdn.net/weixin_38887369                            // 我的主页
    
 三.使用的简单实例
+
 0. 本代码使用了Qt ,但只使用了 qstring、 qstringlist、 qvector，如果你不想使用qt,直接使用标准的c++也可，
    只需要做很少的改动，代码内部会说明改的思路，其实直接使用c++的标准库效率更高，我之所以使用Qt是因为项目的关系。
    如果下载量多，我会修改成标准的c++版本（不使用任何其他的库），这样移植起来更方便些。
@@ -22,46 +24,56 @@
    速度粗糙大概估计（win10系统 + i5-8265U + 单线程下 + 每人3个字 => 50人/毫秒）。
    因为并不确定用户输入的拼音是那个，所以要输出所有的拼音组合。
    
-   getComPingyinForStr("解红",fristPy,fullPy);    // fristPy =  "jg xg jh xh"  , fullPy =  "jiegong xiegong jiehong xiehong"
-   getComPingyinForStr("查查",fristPy,fullPy);    // fristPy =  "cc zc cz zz"  , fullPy =  "chacha zhacha chazha zhazha"
-   getComPingyinForStr("尉迟萌",fristPy,fullPy);  // fristPy =  "wcm ycm"  , fullPy =  "weichimeng yuchimeng"
-   getComPingyinForStr("李石",fristPy,fullPy);    // fristPy =  "ld ls"  , fullPy =  "lidan lishi"
-   getComPingyinForStr("小明",fristPy,fullPy);    // fristPy =  "xm"  , fullPy =  "xiaoming"
+   getComPingyinForStr("解红",fristPy,fullPy); 
+   // fristPy =  "jg xg jh xh"  , fullPy =  "jiegong xiegong jiehong xiehong"
+   
+   getComPingyinForStr("查查",fristPy,fullPy);    
+   // fristPy =  "cc zc cz zz"  , fullPy =  "chacha zhacha chazha zhazha"
+   
+   getComPingyinForStr("尉迟萌",fristPy,fullPy);  
+   // fristPy =  "wcm ycm"  , fullPy =  "weichimeng yuchimeng"
+   
+   getComPingyinForStr("李石",fristPy,fullPy);    
+   // fristPy =  "ld ls"  , fullPy =  "lidan lishi"
+   
+   getComPingyinForStr("小明",fristPy,fullPy);    
+   // fristPy =  "xm"  , fullPy =  "xiaoming"
    
 2. 获取输入姓名的拼音（唯一的），和上面的区别就相当于，在所有的拼音组合中选择本算法认为最正确的一个。（100人/毫秒）
    因为一个多音字在做 {姓、名}  时可能会有不同的读音。
    一共有两个函数 myNameSplit(...）getNamePingyin(...)  ,使用方法很明显。
    
-    QString names = { "东皇太一 尉迟小白 解波 卜艾 颜碧玉 句帅 杨红给 吕布 亚里士多缺德 覃黄埔 菊花拉姆 上官万" };
-	QStringList nameList = names.split(" ");           
-	for (size_t i = 0; i < nameList.size(); i++)
-	{
-	  QString full, fist, last;
-	  full = nameList[i];
+QString names = { "东皇太一 尉迟小白 解波 卜艾 颜碧玉 句帅 杨红给 吕布 亚里士多缺德 覃黄埔 菊花拉姆 上官万" };
+QStringList nameList = names.split(" ");           
+for (size_t i = 0; i < nameList.size(); i++)
+{
+  QString full, fist, last;
+  full = nameList[i];
 
-	  myNameSplit(full, last, fist);           // 自动切分 [姓、名]
-	  last = getNamePingyin(last, true);       // 获取 [姓] 的拼音
-	  fist = getNamePingyin(fist, false);      // 获取 [名] 的拼音
+  myNameSplit(full, last, fist);     // 自动切分 [姓、名]
+  last = getNamePingyin(last, true); // 获取 [姓] 的拼音
+  fist = getNamePingyin(fist, false);// 获取 [名] 的拼音
 
-	  qout << full + " : " + last + "  " + fist << endl;
-	}
-	// 运行结果
-	"东皇太一 : donghuang  taiyi"
-	"尉迟小白 : yuchi  xiaobai"
-	"解波 : xie  bo"
-	"卜艾 : bu  ai"
-	"颜碧玉 : yan  biyu"
-	"句帅 : gou  shuai"
-	"杨红给 : yang  honggei"
-	"吕布 : lv  bu"
-	"亚里士多缺德 : ya  lishiduoquede"
-	"覃黄埔 : qin  huangpu"
-	"菊花拉姆 : juhua  lamu"
-	"上官万 : shangguan  wan"
-	
-	*注意：qout => #define qout qDebug()
+  qout << full + " : " + last + "  " + fist << endl;
+}
+// 运行结果
+"东皇太一 : donghuang  taiyi"
+"尉迟小白 : yuchi  xiaobai"
+"解波 : xie  bo"
+"卜艾 : bu  ai"
+"颜碧玉 : yan  biyu"
+"句帅 : gou  shuai"
+"杨红给 : yang  honggei"
+"吕布 : lv  bu"
+"亚里士多缺德 : ya  lishiduoquede"
+"覃黄埔 : qin  huangpu"
+"菊花拉姆 : juhua  lamu"
+"上官万 : shangguan  wan"
+
+*注意：qout => #define qout qDebug()
 	
 三.总结
+
 1. 如果你有更好的想法或改进的建议，请告诉我。
 2. 如果使用的人多，反馈的优化想法多，我会持久的更新，并且推出跨平台版本（纯c++版本，方便移植）。
 3. 原创不易，转载注明。 
