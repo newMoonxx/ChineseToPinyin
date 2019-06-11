@@ -2,6 +2,7 @@
 汉字转拼音 自适应多音字处理 姓名自动切分 c++开源代码
 
 一.概要
+
 1. 如标题所示，本项目的功能很明显
 2. 对外输出的函数有三个
 
@@ -15,7 +16,9 @@
 二.详情
 
    适用场景、运行效果、代码原理、思路、注意事项 请看博文
+   
    https://blog.csdn.net/weixin_38887369/article/details/91047524   // 本开源项目介绍
+   
    https://blog.csdn.net/weixin_38887369                            // 我的主页
    
 三.使用的简单实例
@@ -44,7 +47,9 @@
    // fristPy =  "xm"  , fullPy =  "xiaoming"
    
 2. 获取输入姓名的拼音（唯一的），和上面的区别就相当于，在所有的拼音组合中选择本算法认为最正确的一个。（100人/毫秒）
+   
    因为一个多音字在做 {姓、名}  时可能会有不同的读音。
+   
    一共有两个函数 myNameSplit(...）getNamePingyin(...)  ,使用方法很明显。
    
 QString names = { "东皇太一 尉迟小白 解波 卜艾 颜碧玉 句帅 杨红给 吕布 亚里士多缺德 覃黄埔 菊花拉姆 上官万" };
@@ -70,17 +75,29 @@ for (size_t i = 0; i < nameList.size(); i++)
 }
 
 // 运行结果
+
 "东皇太一 : donghuang  taiyi"
+
 "尉迟小白 : yuchi  xiaobai"
+
 "解波 : xie  bo"
+
 "卜艾 : bu  ai"
+
 "颜碧玉 : yan  biyu"
+
 "句帅 : gou  shuai"
+
 "杨红给 : yang  honggei"
+
 "吕布 : lv  bu"
+
 "亚里士多缺德 : ya  lishiduoquede"
+
 "覃黄埔 : qin  huangpu"
+
 "菊花拉姆 : juhua  lamu"
+
 "上官万 : shangguan  wan"
 
 *注意：qout => #define qout qDebug()
