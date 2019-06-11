@@ -4,9 +4,13 @@
 一.概要
 1. 如标题所示，本项目的功能很明显
 2. 对外输出的函数有三个
+
    getComPingyinForStr(inFull,outFristPy,outFullPy);              // 获取输入姓名对应拼音的所有排列
+   
    myNameSplit(inFull,outFristPy,outFullPy);                      // 自动切分：姓、名
+   
    QString getNamePingyin(const QString& inStr, bool isLastName); // 获取唯一的拼音（自动识别多音字）
+ 
    
 二.详情
 
@@ -44,18 +48,27 @@
    一共有两个函数 myNameSplit(...）getNamePingyin(...)  ,使用方法很明显。
    
 QString names = { "东皇太一 尉迟小白 解波 卜艾 颜碧玉 句帅 杨红给 吕布 亚里士多缺德 覃黄埔 菊花拉姆 上官万" };
-QStringList nameList = names.split(" ");           
+
+QStringList nameList = names.split(" ");   
+
 for (size_t i = 0; i < nameList.size(); i++)
+
 {
+
   QString full, fist, last;
+  
   full = nameList[i];
 
   myNameSplit(full, last, fist);     // 自动切分 [姓、名]
+  
   last = getNamePingyin(last, true); // 获取 [姓] 的拼音
+  
   fist = getNamePingyin(fist, false);// 获取 [名] 的拼音
 
   qout << full + " : " + last + "  " + fist << endl;
+  
 }
+
 // 运行结果
 "东皇太一 : donghuang  taiyi"
 "尉迟小白 : yuchi  xiaobai"
