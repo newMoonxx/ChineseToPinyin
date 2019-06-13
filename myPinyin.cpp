@@ -1314,7 +1314,8 @@ multiToneWordTableS multiToneWordTable[g_length_multiToneWordTable] =
 
 /*
 0. 汉字拼音表，来源于 http://xh.5156edu.com/pinyi.html （需要自己获取数据）
-1. 在'bo'添加'卜' ; 'de'添加'的' ; 'wan'添加'涴' （获取到的数据有缺失，是网站的问题，这里直接补全）
+1. 在'bo'添加'卜' ; 'de'添加'的' ; 'wan'添加'涴' ; 'ta'添加'他'
+  （获取到的数据有缺失，是网站的问题，这里直接补全）
 2. ü 用 v 代替
 */
 hanziTableS hanziTables[g_length_hanziTables] =
@@ -1654,7 +1655,7 @@ hanziTableS hanziTables[g_length_hanziTables] =
 { "s","sun","孙狲荪孫飧飱猻搎蓀槂蕵薞笋损隼筍損榫箰簨鎨鶽潠" },
 { "s","suo","莎莏唆娑挱桫梭挲傞睃嗍蓑羧摍缩趖簑簔縮鮻所唢索琐惢锁嗩溑暛褨瑣璅鎖鎻鎍鏁逤溹蜶琑嗦鱛" },
 
-{ "t","ta","它她牠祂铊趿鉈溻塌榙禢褟踏溚塔墖獭鮙鳎獺鰨拓沓㳠挞闼狧粏崉涾傝嗒遝阘搨漯毾榻澾撻誻錔橽嚃鞜蹋濌鞳闒蹹闥嚺譶躢侤萙遢燵襨鶎鱩" },
+{ "t","ta","他它她牠祂铊趿鉈溻塌榙禢褟踏溚塔墖獭鮙鳎獺鰨拓沓㳠挞闼狧粏崉涾傝嗒遝阘搨漯毾榻澾撻誻錔橽嚃鞜蹋濌鞳闒蹹闥嚺譶躢侤萙遢燵襨鶎鱩" },
 { "t","tan","坍贪怹痑啴舑貪滩摊嘽瘫潬擹攤灘癱坛昙郯倓谈弹婒埮惔覃锬痰榃谭潭憛墰墵談醈曇錟壇燂橝澹檀顃罈藫壜譚醰貚譠罎忐坦钽袒菼毯僋鉭嗿憳憻醓暺璮叹炭探湠嘆碳舕歎" },
 { "t","tai","台囼孡苔胎邰旲坮骀抬炱炲菭跆鲐颱臺箈駘鮐儓薹擡嬯檯籉呔太夳冭汏汰汱忲肽态钛舦泰酞鈦溙態燤" },
 { "t","tao","夲叨弢涛绦掏焘絛詜慆搯滔幍嫍槄瑫韬飸縚縧轁濤謟鞱韜饕迯匋洮逃咷陶桃梼萄淘绹啕祹裪蜪綯鞀鞉醄鋾駣騊饀鼗讨討套" },
@@ -1754,11 +1755,6 @@ hanziTableS hanziTables[g_length_hanziTables] =
 { "z","zuo","作嘬穝昨莋秨笮捽琢筰鈼稓左佐撮繓阼坐怍岞岝侳祚胙袏座唑做葃葄飵糳咗" }
 
 };
-
-
-
-
-
 
 
 
