@@ -1,7 +1,9 @@
 # ChineseToPinyin
 汉字转拼音 自适应多音字处理 姓名自动切分 c++开源代码
+====
 
-#// === V2.0 === //  
+V2.0版本
+----
 更新提要：  
 V2.0 2020年04月10日：    
 1. 更新纯c++版本，主要使用wstring实现  
@@ -14,18 +16,19 @@ V2.0 2020年04月10日：
 	>qstring版本 => V1.0, qt平台版本，  
         
 
-#// === V1.0版本 === //  
+V1.0版本
+----
 一.概要
 
 1. 如标题所示，本项目的功能很明显
 2. 对外输出的函数有三个
-
+```c
    getComPingyinForStr(inFull,outFristPy,outFullPy);              // 获取输入姓名对应拼音的所有排列
    
    myNameSplit(inFull,outFristPy,outFullPy);                      // 自动切分：姓、名
    
    QString getNamePingyin(const QString& inStr, bool isLastName); // 获取唯一的拼音（自动识别多音字）
- 
+```
    
 二.详情
 
@@ -44,7 +47,7 @@ V2.0 2020年04月10日：
 1. 获取输入姓名对应拼音的所有排列（列表搜索时使用），就一个函数，后面的注释就是运行结果，使用很简单。
    速度粗糙大概估计（win10系统 + i5-8265U + 单线程下 + 每人3个字 => 50人/毫秒）。
    因为并不确定用户输入的拼音是那个，所以要输出所有的拼音组合。
-   
+```c
    getComPingyinForStr("解红",fristPy,fullPy); 
    // fristPy =  "jg xg jh xh"  , fullPy =  "jiegong xiegong jiehong xiehong"
    
@@ -59,13 +62,14 @@ V2.0 2020年04月10日：
    
    getComPingyinForStr("小明",fristPy,fullPy);    
    // fristPy =  "xm"  , fullPy =  "xiaoming"
+```
    
 2. 获取输入姓名的拼音（唯一的），和上面的区别就相当于，在所有的拼音组合中选择本算法认为最正确的一个。（100人/毫秒）
    
    因为一个多音字在做 {姓、名}  时可能会有不同的读音。
    
    一共有两个函数 myNameSplit(...）getNamePingyin(...)  ,使用方法很明显。
-   
+```c
 QString names = { "东皇太一 尉迟小白 解波 卜艾 颜碧玉 句帅 杨红给 吕布 亚里士多缺德 覃黄埔 菊花拉姆 上官万" };
 
 QStringList nameList = names.split(" ");   
@@ -115,6 +119,7 @@ for (size_t i = 0; i < nameList.size(); i++)
 "上官万 : shangguan  wan"
 
 *注意：qout => #define qout qDebug()
+```
 	
 三.总结
 
