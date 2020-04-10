@@ -20,49 +20,21 @@
 	   getComPingyinForStr() => 50 ÈË/ms
 	   getNamePingyin()      => 100ÈË/ms
 7. Ê¹ÓÃ·½·¨£º¿ÉÒÔÖ±½Ó¿´±¾ÎÄ¼ş£¨.hÎÄ¼ş£©µÄ×¢ÊÍ »ò ½øÈëÏêÇéÒ³Ãæ¿ª£¬¼ûµÚ¶şÌõµÄÍøÖ· 
+
+¸üĞÂ£º
+	V2.0 2020Äê04ÔÂ10ÈÕ£º
+	1. ¸üĞÂc++°æ±¾£¬Ö÷ÒªÊ¹ÓÃwstring
+	2. É¾³ı×Ö¿âÖĞµÄ: ','
+	3. ¸ü¸Äºº×ÖÅĞ¶Ï¹æÔò£¬ÏêÇé¿´isHanziChar(wchar_t wch);
 */
 #pragma once
 
-#include <qstring.h>
-#include <qstringlist.h>
-#include <qvector.h>
-
-
-/*
-0. vs2017µÄÄ¬ÈÏ±àÂë²»ÊÇutf-8£¬Èç¹ûÔÚqtµÄIDE±à¼­²»ĞèÒªÕâ¾ä£»Èç¹ûÔÚvsÉÏ¿ª·¢²¢ÇÒ²»ÓÃqt,Ò²²»ĞèÒªÕâ¾ä
-1. ÎÒÊÇÔÚvs2017ÉÏÊ¹ÓÃqt, Èç¹ûÃ»ÓĞÕâ¾ä£¬ÔòQString str="¹ş¹ş"; str»áÊÇÂÒÂëµÄ
-2. Èç¹ûÄãÒªÊ¹ÓÃCString ,Ôò×Ô¼ºÄÔ²¿...
-*/
-#pragma execution_character_set("utf-8") // 
-
-// ºº×Ö-Æ´Òô
-struct hanziTableS
-{
-	// Æ´Òô
-	QString first_py;  // Ê××ÖÄ¸
-	QString full_py;   // È«Æ´
-
-	// ºº×Ö
-	QString hanzis;
-};
-
-// ÌØÊâĞÕÊÏ·¢Òô
-struct lastNameTableS
-{
-	QString hanzi;
-	QString pinyi;
-};
-
-// ³£ÓÃ¶àÒô×Ö
-struct multiToneWordTableS
-{
-	QString hanzi;
-	QString pinyi;
-};
+#include <string>
+#include <vector>
+using namespace std;
 
 
 // ----- Íâ²¿Ê¹ÓÃ ----- //
-
 /* 
 0. »ñÈ¡×éºÏÆ´Òô(Ò»¿ÉÄÜ¶Ô¶à),ÓÃÓÚËÑË÷
 1. eg: 
@@ -72,7 +44,7 @@ struct multiToneWordTableS
 	getComPingyinForStr("ÀîÊ¯",fristPy,fullPy);    // fristPy =  "ld ls"  , fullPy =  "lidan lishi"
 	getComPingyinForStr("Ğ¡Ã÷",fristPy,fullPy);    // fristPy =  "xm"  , fullPy =  "xiaoming"
 */
-int getComPingyinForStr(const QString& inStr, QString& outFrist_py, QString& outFull_py);//ok
+int getComPingyinForStr(const wstring& inStr, wstring& outFrist_py, wstring& outFull_py);//ok
 /*
 0. ¡¾ĞÕ¡¢Ãû¡¿·Ö±ğ×ªÆ´Òô£¨ÑÏ¸ñµÄÒ»Ò»¶ÔÓ¦£©£¬ÓÃÓÚºº×ÖÇ¿×ªÆ´Òô
 1. Ê¹ÓÃÁË£ºĞÕÊÏÌØÊâ¶ÁÒô×Ö¿â + ¶àÒô×Ö³£ÓÃ¶ÁÒô×Ö¿â + È«×Ö¿â
@@ -92,45 +64,43 @@ int getComPingyinForStr(const QString& inStr, QString& outFrist_py, QString& out
 	str = getNamePingyin("µ¥ÓÚ",true);   // str => "chanyu"
 	str = getNamePingyin("µ¥ÓÚ",false);  // str => "danyu"
 */
-QString getNamePingyin(const QString& inStr, bool isLastName);//
+wstring getNamePingyin(const wstring& inStr, bool isLastName);//ok
 /*
 0. ×Ô¶¯ÇĞ·Ö ĞÕ¡¢Ãû
 1. »ù±¾Ö»ÄÜÓ¦¶ÔÆÕÍ¨µÄ¸´ĞÕ£¨Á½¸ö×Ö£©£¬Èç¹ûÔÚ¸´ĞÕ±íÖĞÃ»ÓĞÕÒµ½£¬Ôò: ĞÕÊÏ = £¨fullName.size() == 4£© ? fullNameµÄÇ°Á½¸ö¸ö×Ö·û £º fullNameµÄµÚÒ»¸ö×Ö·û
 2. ±¸×¢£º°Ù¶ÈµÄĞÕÊÏ»ù±¾¾Í70¶à¸ö£¬ÕâÀïÓĞ90¸ö£¬µ«ÊÇºöÂÔµÄÉÙÊıÃñ×åµÄĞÕÊÏ£¬Ò²²»ÒªÈÏÎª¸´ĞÕ¾ÍÊÇÁ½¸ö×Ö£¬(¡¶ÖĞ¹úÉÙÊıÃñ×åĞÕÊÏ¡·»ã×Ü´ó¸ÅÓĞ1Íò¶à)
    ÀıÈç£ºÎÚÀ­ÎÚÀ­ÊÏ¡¢°®ĞÂ¾õÂŞ¡¢Å¥îÜÂ»¡¢É«ÊÏ¡¢ÄáÂê£¨ÎÒ¼û¹ıºÜ¶àĞÕÕâ¸öµÄ£©
 3. eg:
-	QString names = {"¶«»ÊÌ«Ò» Î¾³ÙĞ¡°× ½â²¨ ²·°¬ ÑÕ±ÌÓñ ¾äË§ Ñîºì¸ø ÂÀ²¼ ÑÇÀïÊ¿¶àÈ±µÂ ñû»ÆÆÒ ¾Õ»¨À­Ä· ÉÏ¹ÙÍò"};
-	QStringList nameList = names.split(" ");
-	for (size_t i = 0; i < nameList.size(); i++)
+	wcout << L"ĞÕÃû²ğ·Ö²âÊÔ£º" << endl;
+	wstring names[13] = { L"¶«»ÊÌ«Ò»", L"Î¾³ÙĞ¡°×", L"½â²¨", L"²·°¬", L"ÑÕ±ÌÓñ", L"¾äË§", L"Ñîºì¸ø", L"ÂÀ²¼", L"ÑÇÀïÊ¿¶àÈ±µÂ", L"ñû»ÆÆÒ", L"¾Õ»¨À­Ä·", L"ÉÏ¹ÙÍò", L"mack" };
+	for (size_t i = 0; i < 13; i++)
 	{
-		QString full, fist, last;
-		full = nameList[i];
-
+		wstring full, fist, last;
+		full = names[i];
 		myNameSplit(full, last, fist);
-		last = getNamePingyin(last, true);
-		fist = getNamePingyin(fist, false);
-
-		qout << full + " : " + last + "  " + fist << endl;
+		wcout << full <<  L" => ĞÕ:" << last  <<L" ,Ãû:" << fist << endl;
 	}
+
 	// ½á¹û
-	"¶«»ÊÌ«Ò» : donghuang  taiyi"
-	"Î¾³ÙĞ¡°× : yuchi  xiaobai"
-	"½â²¨ : xie  bo"
-	"²·°¬ : bu  ai"
-	"ÑÕ±ÌÓñ : yan  biyu"
-	"¾äË§ : gou  shuai"
-	"Ñîºì¸ø : yang  honggei"
-	"ÂÀ²¼ : lv  bu"
-	"ÑÇÀïÊ¿¶àÈ±µÂ : ya  lishiduoquede"
-	"ñû»ÆÆÒ : qin  huangpu"
-	"¾Õ»¨À­Ä· : juhua  lamu"
-	"ÉÏ¹ÙÍò : shangguan  wan"
+	ĞÕÃû²ğ·Ö²âÊÔ£º
+	¶«»ÊÌ«Ò»	 => ĞÕ:¶«»Ê ,Ãû:Ì«Ò»
+	Î¾³ÙĞ¡°×	 => ĞÕ:Î¾³Ù ,Ãû:Ğ¡°×
+	½â²¨		 => ĞÕ:½â   ,Ãû:²¨
+	²·°¬		 => ĞÕ:²·   ,Ãû:°¬
+	ÑÕ±ÌÓñ		 => ĞÕ:ÑÕ   ,Ãû:±ÌÓñ
+	¾äË§		 => ĞÕ:¾ä   ,Ãû:Ë§
+	Ñîºì¸ø		 => ĞÕ:Ñî   ,Ãû:ºì¸ø
+	ÂÀ²¼         => ĞÕ:ÂÀ   ,Ãû:²¼
+	ÑÇÀïÊ¿¶àÈ±µÂ => ĞÕ:ÑÇ   ,Ãû:ÀïÊ¿¶àÈ±µÂ
+	ñû»ÆÆÒ		 => ĞÕ:ñû   ,Ãû:»ÆÆÒ
+	¾Õ»¨À­Ä·     => ĞÕ:¾Õ»¨ ,Ãû:À­Ä·
+	ÉÏ¹ÙÍò       => ĞÕ:ÉÏ¹Ù ,Ãû:Íò
+	mack         => ĞÕ:     ,Ãû:mack
 */
-void myNameSplit(const QString& inFullName, QString& outLastName, QString& outFirstName);
+void myNameSplit(const wstring& inFullName, wstring& outLastName, wstring& outFirstName);//ok
 
 
 // ----- ÄÚ²¿²¿Ê¹ÓÃ ----- //
-
 /*
 0. »ñÈ¡Ò»¸öºº×ÖµÄ¡¾ËùÓĞ¡¿Æ´Òô(Ê××ÖÄ¸¡¢È«Æ´)
 1. Ê¹ÓÃ×Ö¿â £º hanziTables[]
@@ -141,8 +111,7 @@ void myNameSplit(const QString& inFullName, QString& outLastName, QString& outFi
    getAllPingyinForWord("¾ä",fristPy,fullPy); // fristPy => {"g","j"} , fullPy => {"gou","ju"}
    getAllPingyinForWord("Áú",fristPy,fullPy); // fristPy => {"l"}     , fullPy => {"long"}
 */
-int getAllPingyinForWord(const QString& inWord, QStringList& outFrist_py, QStringList& outFull_py); // ok
-
+int getAllPingyinForWord(const wstring& inWord, vector<wstring>& outFrist_py, vector<wstring>& outFull_py); 
 /*
 0. »ñÈ¡Ò»¸ö×ÖµÄÆ´Òô,Èç¹ûÊÇ¶àÒô×Ö·µ»Ø³£ÓÃ¶ÁÒô
 1. Æ«ÏòÓÚÃûµÄ·¢ÒôÆ«ºÃ,¶ø²»ÊÇĞÕÊÏµÄ·¢ÒôÆ«ºÃ
@@ -156,4 +125,13 @@ int getAllPingyinForWord(const QString& inWord, QStringList& outFrist_py, QStrin
    str = getNoRepeatPingyinForWord("½â"); // str => "jie"
    str = getNoRepeatPingyinForWord("Ê¯"); // str => "shi"
 */
-QString getNoRepeatPingyinForWord(const QString& inWord);//ok
+wstring getNoRepeatPingyinForWord(const wstring& inWord);
+/* 
+0. ¼ì²éÊÇ·ñÊÇºº×Ö
+1. ²»Í¬µÄ±àÂë·½Ê½¡¢IDE£¬¿ÉÄÜĞèÒª²»Í¬µÄÉèÖÃÖµ
+*/
+bool isHanziChar(wchar_t wch);
+/* 
+0. ²âÊÔ±¾×Ö¿âÔÚ±¾»·¾³ÏÂÔËĞĞÊ±µÄºº×ÖµÄ±àÂëÖµ
+*/
+void testHanziRang();
