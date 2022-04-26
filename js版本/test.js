@@ -23,4 +23,7 @@ function getPingyinOptions(inStr,mode){
         return unqPinyin.fullPy !== element.fullPy;
     });
     comPinyins.unshift(unqPinyin);
+
+    //
+    return comPinyins
 }
